@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Appointment } from './models/appointment.model';
-import { environment } from './../environments/environment';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = 'http://localhost/be/appointment-apiv1.php';
 
   constructor(private http: HttpClient) {}
 
@@ -17,32 +18,16 @@ export class AppointmentService {
   }
 
   addAppointment(appointment: Appointment): Observable<any> {
-    const postData = {
-      type: 'create',
-      description: appointment.description,
-      date: appointment.date
-    };
-
-    return this.http.post<any>(this.apiUrl, postData);
+    console.log(appointment);
+    return this.http.post<any>(this.apiUrl, appointment)
   }
 
   updateAppointment(appointment: Appointment): Observable<any> {
-    const postData = {
-      type: 'update',
-      id: appointment.id,
-      description: appointment.description,
-      date: appointment.date
-    };
-
-    return this.http.post<any>(this.apiUrl, postData);
+    return this.http.put<any>(`${this.apiUrl}/${appointment.id}`, appointment);
   }
 
   deleteAppointment(id: number): Observable<any> {
-    const postData = {
-      type: 'delete',
-      id: id
-    };
-
-    return this.http.post<any>(this.apiUrl, postData);
+    console.log(id);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }
