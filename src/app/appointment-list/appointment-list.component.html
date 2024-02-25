@@ -1,0 +1,16 @@
+
+
+<h2 class="text-center">Appointments</h2>
+
+<app-appointment-form (appointmentCreated)="onAppointmentCreated($event)"></app-appointment-form>
+
+<div class="row" *ngFor="let appointment of appointments">
+    <div class="col-md-6">
+        <span class="appointment-id">{{ appointment.id }}</span> 
+        <span class="appointment-name"> {{appointment.description }}</span>
+    </div>
+    <div class="col-md-6 text-end mt-2" >
+        <span class="appointment-date">{{ appointment.date |date}}</span>
+        <button class="btn btn-sm btn-danger ms-2" (click)="deleteAppointment(appointment.id)">Delete</button>
+      </div>
+</div>

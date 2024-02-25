@@ -1,0 +1,18 @@
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Appointment Name" [(ngModel)]="description" name="appointmentName" required>
+        <!-- Display validation message if the field is empty -->
+        <div *ngIf="!description" class="text-danger">Appointment name is required</div>
+    </div>
+    <div class="col-md-4">
+        <input type="date" class="form-control" [(ngModel)]="date" name="appointmentDate" required>
+        <!-- Display validation message if the field is empty -->
+        <div *ngIf="!date" class="text-danger">Appointment date is required</div>
+    </div>
+
+    <div class="col-md-2">
+        <!-- Add onclick event below button to call add appointment method with the appointment name and date as parameters -->
+        <button class="btn btn-primary" (click)="emitAppointment()" [disabled]="!description || !date">Add</button>
+        <!-- Disable button if any of the fields are empty -->
+    </div>
+</div>
